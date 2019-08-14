@@ -24,6 +24,7 @@ namespace :acceptance do
     pooler: [
       'centos7',
       'rhel7',
+      'rhel8',
       'ubuntu-1404',
       'ubuntu-1604',
       'ubuntu-1610',

@@ -5,14 +5,20 @@ volume_name = 'test-volume'
 if fact('osfamily') == 'windows'
   docker_args = 'docker_ee => true'
   command = '"/cygdrive/c/Program Files/Docker/docker"'
-elsif 'osfamily' == 'RedHat'
-  docker_args = "repo_opt => '--enablerepo=localmirror-extras'"
-  command = 'docker'
-elsif fact('os.name') == 'Ubuntu' && fact('os.release.full') == '14.04'
-  docker_args = "version => '18.06.1~ce~3-0~ubuntu'"
-  command = 'docker'
 else
-  docker_args = ''
+  docker_args = if fact('osfamily') == 'RedHat'
+    if fact('os.release.major') == '8'
+      "repo_opt => '--nobest'"
+    else
+      "repo_opt => '--enablerepo=localmirror-extras'"
+    end
+  elsif fact('os.name') == 'Centos'
+    "repo_opt => '--enablerepo=localmirror-extras'"
+  elsif fact('os.name') == 'Ubuntu' && fact('os.release.full') == '14.04'
+    "version => '18.06.1~ce~3-0~ubuntu'"
+  else
+    ''
+  end
   command = 'docker'
 end
 

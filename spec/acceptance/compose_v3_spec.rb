@@ -12,7 +12,11 @@ if fact('osfamily') == 'windows'
                    end
 else
   docker_args = if fact('os.name') == 'RedHat'
-                  "repo_opt => '--enablerepo=localmirror-extras'"
+                  if fact('os.release.major') == '8'
+                    "repo_opt => '--nobest'"
+                  else
+                    "repo_opt => '--enablerepo=localmirror-extras'"
+                  end
                 elsif fact('os.name') == 'Centos'
                   "repo_opt => '--enablerepo=localmirror-extras'"
                 elsif fact('os.name') == 'Ubuntu' && fact('os.release.full') == '14.04'

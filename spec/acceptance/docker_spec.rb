@@ -18,6 +18,12 @@ if fact('osfamily') == 'windows'
   broken = true
 else
   docker_args = if fact('osfamily') == 'RedHat'
+                  if fact('os.release.major') == '8'
+                    "repo_opt => '--nobest'"
+                  else
+                    "repo_opt => '--enablerepo=localmirror-extras'"
+                  end
+                elsif fact('os.name') == 'Centos'
                   "repo_opt => '--enablerepo=localmirror-extras'"
                 elsif fact('os.name') == 'Ubuntu' && fact('os.release.full') == '14.04'
                   "version => '18.06.1~ce~3-0~ubuntu'"

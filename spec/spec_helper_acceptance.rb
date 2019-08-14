@@ -74,9 +74,11 @@ RSpec.configure do |c|
       # other software. Thus this workaround.
       if fact_on(host, 'operatingsystem') == 'RedHat'
         on(host, 'mv /etc/yum.repos.d/redhat.repo /etc/yum.repos.d/internal-mirror.repo')
+        on(host, "yum install -y yum-utils device-mapper-persistent-data lvm2", acceptable_exit_codes: [0]).stdout
         on(host, 'rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm')
+        #on(host, "yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo", acceptable_exit_codes: [0]).stdout 
       end
-      on(host, 'yum update -y -q') if fact_on(host, 'osfamily') == 'RedHat'
+      #on(host, 'yum update -y -q') if fact_on(host, 'osfamily') == 'RedHat'
 
       on host, puppet('module', 'install', 'puppetlabs-stdlib', '--version', '4.24.0'), acceptable_exit_codes: [0, 1]
       on host, puppet('module', 'install', 'puppetlabs-apt', '--version', '4.4.1'), acceptable_exit_codes: [0, 1]

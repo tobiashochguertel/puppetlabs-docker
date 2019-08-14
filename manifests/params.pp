@@ -202,7 +202,12 @@ class docker::params {
       $service_after_override      = undef
       $use_upstream_package_source = true
 
-      $package_ce_source_location  = "https://download.docker.com/linux/centos/${::operatingsystemmajrelease}/${::architecture}/${docker_ce_channel}"
+      if (versioncmp(::operatingsystemmajrelease, '8') >= 0) {
+        # RedHat 8 does not support docker officially. use RedHat 7 repo
+        $package_ce_source_location  = "https://download.docker.com/linux/centos/7/${::architecture}/${docker_ce_channel}"
+      } else {
+        $package_ce_source_location  = "https://download.docker.com/linux/centos/${::operatingsystemmajrelease}/${::architecture}/${docker_ce_channel}"
+      }
       $package_ce_key_source       = 'https://download.docker.com/linux/centos/gpg'
       $package_ce_key_id           = undef
       $package_ce_release          = undef
@@ -232,7 +237,11 @@ class docker::params {
 
       # repo_opt to specify install_options for docker package
       if $::operatingsystem == 'RedHat' {
-        $repo_opt = '--enablerepo=rhel-7-server-extras-rpms'
+        if (versioncmp(::operatingsystemmajrelease, '8') >= 0) {
+          $repo_opt = '--nobest'
+        } else {
+          $repo_opt = '--enablerepo=rhel-7-server-extras-rpms'
+        }
       } else {
         $repo_opt = undef
       }
