@@ -615,7 +615,7 @@ This is an example of a Compose file:
 
 ```yaml
 compose_test:
-  image: ubuntu:14.04
+  image: ubuntu:16.04
   command: /bin/sh -c "while true; do echo hello world; sleep 1; done"
 ```
 
@@ -1004,7 +1004,6 @@ This module supports:
 * Debian 8.0
 * Debian 9.0
 * RedHat 7.0
-* Ubuntu 14.04
 * Ubuntu 16.04
 * Ubuntu 18.04
 * Windows Server 2016 (Docker Enterprise Edition only)

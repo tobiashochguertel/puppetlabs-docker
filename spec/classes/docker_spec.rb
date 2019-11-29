@@ -978,24 +978,24 @@ describe 'docker', type: :class do
     end
   end
 
-  context 'specific to Ubuntu Trusty' do
-    let(:facts) do
-      {
-        architecture: 'amd64',
-        osfamily: 'Debian',
-        lsbdistid: 'Ubuntu',
-        operatingsystem: 'Ubuntu',
-        lsbdistcodename: 'trusty',
-        operatingsystemrelease: '14.04',
-        kernelrelease: '3.8.0-29-generic',
-        os: { distro: { codename: 'wheezy' }, family: 'Debian', name: 'Debian', release: { major: '7', full: '7.0' } },
-      }
-    end
+  # context 'specific to Ubuntu Trusty' do
+  #   let(:facts) do
+  #     {
+  #       architecture: 'amd64',
+  #       osfamily: 'Debian',
+  #       lsbdistid: 'Ubuntu',
+  #       operatingsystem: 'Ubuntu',
+  #       lsbdistcodename: 'trusty',
+  #       operatingsystemrelease: '14.04',
+  #       kernelrelease: '3.8.0-29-generic',
+  #       os: { distro: { codename: 'wheezy' }, family: 'Debian', name: 'Debian', release: { major: '7', full: '7.0' } },
+  #     }
+  #   end
 
-    it { is_expected.to contain_service('docker').with_provider('upstart') }
-    it { is_expected.to contain_package('docker').with_name('docker-ce').with_ensure('present') }
-    it { is_expected.to contain_package('apparmor') }
-  end
+  #   it { is_expected.to contain_service('docker').with_provider('upstart') }
+  #   it { is_expected.to contain_package('docker').with_name('docker-ce').with_ensure('present') }
+  #   it { is_expected.to contain_package('apparmor') }
+  # end
 
   context 'newer versions of Debian and Ubuntu' do
     context 'Ubuntu >= 15.04' do

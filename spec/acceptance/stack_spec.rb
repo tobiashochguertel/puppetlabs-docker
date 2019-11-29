@@ -6,11 +6,11 @@ if fact('osfamily') == 'windows'
   wait_for_container_seconds = 120
 
 else
-  docker_args = if fact('os.name') == 'Ubuntu' && fact('os.release.full') == '14.04'
-                  "version => '18.06.1~ce~3-0~ubuntu'"
-                else
-                  ''
-                end
+  docker_args = ''#if fact('os.name') == 'Ubuntu' && fact('os.release.full') == '14.04'
+  #                 "version => '18.06.1~ce~3-0~ubuntu'"
+  #               else
+                  # ''
+                # end
   tmp_path = '/tmp'
   wait_for_container_seconds = 10
 end

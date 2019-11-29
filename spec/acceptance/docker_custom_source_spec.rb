@@ -12,9 +12,9 @@ if fact('osfamily') == 'windows'
   default_run_command = 'ping 127.0.0.1 -t'
   docker_command = '"/cygdrive/c/Program Files/Docker/docker"'
   skip = false
-elsif fact('os.name') == 'Ubuntu' && fact('os.release.full') == '14.04'
-  docker_args = "version => '18.06.1~ce~3-0~ubuntu'"
-  skip = true
+# elsif fact('os.name') == 'Ubuntu' && fact('os.release.full') == '14.04'
+#   docker_args = "version => '18.06.1~ce~3-0~ubuntu'"
+#   skip = true
 else
   docker_args = ''
   skip = true
