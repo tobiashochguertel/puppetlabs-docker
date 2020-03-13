@@ -54,7 +54,10 @@ class docker::install (
           $pk_provider = 'dpkg'
         }
         'RedHat' : {
-          $pk_provider = 'yum'
+          case $facts['os']['release']['major'] {
+            '8':           { $pk_provider = 'dnf' }
+            default:       { $pk_provider = 'yum' }
+          }
         }
         'windows' : {
           fail(translate('Custom package source is currently not implemented on windows.'))
@@ -66,18 +69,20 @@ class docker::install (
       case $docker::package_source {
         /docker-engine/ : {
           ensure_resource('package', 'docker', merge($docker_hash, {
-            ensure   => $ensure,
-            provider => $pk_provider,
-            source   => $docker::package_source,
-            name     => $docker::docker_engine_package_name,
+            ensure          => $ensure,
+            provider        => $pk_provider,
+            install_options => $docker::package_install_options,
+            source          => $docker::package_source,
+            name            => $docker::docker_engine_package_name,
           }))
         }
         /docker-ce/ : {
           ensure_resource('package', 'docker', merge($docker_hash, {
-            ensure   => $ensure,
-            provider => $pk_provider,
-            source   => $docker::package_source,
-            name     => $docker::docker_ce_package_name,
+            ensure          => $ensure,
+            provider        => $pk_provider,
+            install_options => $docker::package_install_options,
+            source          => $docker::package_source,
+            name            => $docker::docker_ce_package_name,
           }))
         }
         default : {}
