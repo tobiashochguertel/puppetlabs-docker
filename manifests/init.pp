@@ -197,6 +197,9 @@
 #   If you're using an upstream package source, what is it's
 #   location. Defaults to http://get.docker.com/ubuntu on Debian
 #
+# [*package_install_options*]
+#   Defaults to ''. https://puppet.com/docs/puppet/5.5/types/package.html#package-attribute-install_options
+#
 # [*service_state*]
 #   Whether you want to docker daemon to start up
 #   Defaults to running
@@ -473,6 +476,7 @@ class docker(
   Optional[String] $execdriver                              = $docker::params::execdriver,
   Boolean $manage_package                                   = $docker::params::manage_package,
   Optional[String] $package_source                          = $docker::params::package_source,
+  Optional[String] $package_install_options                 = $docker::params::package_install_options,
   Optional[String] $service_name                            = $docker::params::service_name,
   Array $docker_users                                       = [],
   String $docker_group                                      = $docker::params::docker_group,
