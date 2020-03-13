@@ -9,7 +9,6 @@ class docker::params {
   $docker_ce_package_name            = 'docker-ce'
   $docker_engine_start_command       = 'docker daemon'
   $docker_engine_package_name        = 'docker-engine'
-  $docker_package_install_options    = ''
   $docker_ce_channel                 = stable
   $docker_ee                         = false
   $docker_ee_start_command           = 'dockerd'
@@ -90,6 +89,7 @@ class docker::params {
   $dm_override_udev_sync_check       = undef
   $overlay2_override_kernel_check    = false
   $manage_package                    = true
+  $package_install_options           = ''
   $package_source                    = undef
   if ($::osfamily == 'windows') {
     $docker_command                  = 'docker'
