@@ -9,6 +9,7 @@ class docker::params {
   $docker_ce_package_name            = 'docker-ce'
   $docker_engine_start_command       = 'docker daemon'
   $docker_engine_package_name        = 'docker-engine'
+  $docker_package_install_options    = ''
   $docker_ce_channel                 = stable
   $docker_ee                         = false
   $docker_ee_start_command           = 'dockerd'
